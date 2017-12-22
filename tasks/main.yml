@@ -5,6 +5,7 @@
     dest: "{{ dotfiles_directory }}"
     clone: yes
     update: no
+    accept_hostkey: "{{ dotfiles_repository_accept_hostkey }}"
 
 - block:
     - name: Make sure that GNU stow is available
