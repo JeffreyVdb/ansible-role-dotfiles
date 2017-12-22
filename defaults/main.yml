@@ -1,0 +1,7 @@
+---
+stow_package: stow
+
+dotfiles_repository: "https://github.com/xero/dotfiles"
+dotfiles_home_directory: "{{ ansible_env.HOME }}"
+dotfiles_directory: "{{ dotfiles_home_directory }}/dotfiles"
+dotfiles_stow_links: []

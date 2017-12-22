@@ -1,0 +1,23 @@
+---
+- name: Clone dotfiles to "{{ dotfiles_directory }}"
+  git:
+    repo: "{{ dotfiles_repository }}"
+    dest: "{{ dotfiles_directory }}"
+    clone: yes
+    update: no
+
+- block:
+    - name: Make sure that GNU stow is available
+      package:
+        name: "{{ stow_package }}"
+        state: present
+
+    - name: Link dotfiles
+      command: stow -v "{{ item }}"
+      args:
+        chdir: "{{ dotfiles_directory }}"
+      register: stow
+      changed_when: 'stow.stdout != ""'
+      with_items: "{{ dotfiles_stow_links }}"
+
+  when: dotfiles_stow_links is defined and dotfiles_stow_links|length > 0
