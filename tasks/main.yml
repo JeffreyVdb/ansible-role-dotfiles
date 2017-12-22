@@ -6,6 +6,8 @@
     clone: yes
     update: no
     accept_hostkey: "{{ dotfiles_repository_accept_hostkey }}"
+  become: yes
+  become_user: "{{ dotfiles_user }}"
 
 - block:
     - name: Make sure that GNU stow is available
@@ -20,5 +22,7 @@
       register: stow
       changed_when: 'stow.stdout != ""'
       with_items: "{{ dotfiles_stow_links }}"
+      become: yes
+      become_user: "{{ dotfiles_user }}"
 
   when: dotfiles_stow_links is defined and dotfiles_stow_links|length > 0
